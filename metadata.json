@@ -1,0 +1,6 @@
+{
+  "name": "SmartBank Queue",
+  "description": "Modern enterprise banking branch ticketing and queue management web application with customer kiosk, ticket issuance, and queue estimation.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

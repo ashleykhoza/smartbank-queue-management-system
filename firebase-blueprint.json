@@ -1,0 +1,58 @@
+{
+  "$schema": "https://firebase.google.com/schemas/firestore/blueprint.json",
+  "version": "1.0.0",
+  "appName": "SmartBank Queue",
+  "collections": [
+    {
+      "name": "branches",
+      "description": "Branch physical locations and operational queue metadata",
+      "fields": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "code": { "type": "string" },
+        "address": { "type": "string" },
+        "operatingHours": { "type": "string" },
+        "status": { "type": "string" }
+      }
+    },
+    {
+      "name": "departments",
+      "description": "Branch banking departments with code prefixes and SLA times",
+      "fields": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "codePrefix": { "type": "string" },
+        "avgServiceMinutes": { "type": "number" },
+        "assignedCounters": { "type": "string" }
+      }
+    },
+    {
+      "name": "tickets",
+      "description": "Customer queue tickets with status, wait estimation, and service tracking",
+      "fields": {
+        "id": { "type": "string" },
+        "ticketNumber": { "type": "string" },
+        "branchId": { "type": "string" },
+        "departmentId": { "type": "string" },
+        "serviceName": { "type": "string" },
+        "customerName": { "type": "string", "optional": true },
+        "priority": { "type": "string" },
+        "status": { "type": "string" },
+        "queuePosition": { "type": "number" },
+        "estimatedWaitMinutes": { "type": "number" },
+        "createdAt": { "type": "timestamp" }
+      },
+      "indexes": [
+        {
+          "collectionGroup": "tickets",
+          "queryScope": "COLLECTION",
+          "fields": [
+            { "fieldPath": "departmentId", "order": "ASCENDING" },
+            { "fieldPath": "status", "order": "ASCENDING" },
+            { "fieldPath": "createdAt", "order": "ASCENDING" }
+          ]
+        }
+      ]
+    }
+  ]
+}
